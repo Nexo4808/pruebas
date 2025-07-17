@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>PRUEBAS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href={{asset('css/bootstrap.css')}} rel="stylesheet">
-    <script src={{asset('js/bootstrap.js')}}></script>
-</head>
+@extends('layout.layout')
+
+@section('scrips')
 <script>
+ function verTiket(){
+  $("#verT").modal('toggle');
+  $.ajax({
+    url: "{{ route('Info') }}",
+    type:"POST",
+    data:{
+      _token: '{{ csrf_token() }}', // Agrega el token CSRF
+      id: 1,
+    },
+  }).done( function( info ) {
+    console.log(info);
+    
+  });
+ }
   function selectMultiFecha(){
     var active = document.getElementById("cb").checked;
     if(active==false){
@@ -17,47 +25,11 @@
     }
     //document.getElementById("medonco").setAttribute("readonly","true");
   }
-
-
 </script>
+@endsection
+
+@section('content')
 <body>
-  <!--navbar-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">PRUEBAS</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
   <!--contenido-->
   <div class="container-lg mt-5">
     <div class="row">
@@ -93,7 +65,7 @@
               <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    <th>IDaaaa</th>
                     <th>Nombre..............................................</th>
                     <th>estado.................</th>
                   </tr>
@@ -123,13 +95,12 @@
       </div>
     </div>
 
-
-    
     <h1 class="mb-4 text-center">USUARIOS</h1>
     <table class="table table-bordered table-hover">
       <thead class="table-dark">
         <tr>
           <th>ID</th>
+          <th>action</th>
           <th>Nombre</th>
           <th>estado</th>
         </tr>
@@ -139,6 +110,9 @@
         <tr>
             <td>
                 {{$usuario->id}}
+            </td>
+            <td><button class="btn btn-outline-primary" type="form" onclick="verTiket()" id="{{$usuario->id}}">Button</button>
+                
             </td>
             <td>
                 {{$usuario->nombre}}
@@ -151,5 +125,38 @@
       </tbody>
     </table>
   </div>
-</body>
-</html>
+  <!--modales-->
+<div class="modal fade" id="verT" tabindex="-1" name="verT" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              aaa
+            </div>
+            <div class="col-md-4">
+              bbb
+            </div>
+            <div class="col-md-4">
+              ccc
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>>
+
+@endsection
+
+
+
