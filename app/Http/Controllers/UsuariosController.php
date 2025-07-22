@@ -10,4 +10,9 @@ class UsuariosController extends Controller
         $usuarios = new usuarios()->getalluser();
         return view('inicio',['usuarios' => $usuarios]);
     }
+    public function verInfo (Request $request){
+        $id= $request->id;
+        $usuarios = new usuarios()->getuser($id);
+        return response()->json(['usuarios' => $usuarios]);
+    }
 }

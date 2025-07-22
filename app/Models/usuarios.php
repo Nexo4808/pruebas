@@ -12,4 +12,8 @@ class usuarios extends Model
         $usuarios = DB::select('select * from usuarios');
         return $usuarios;
     }
+    public function getuser($idu){
+        $usuarios = DB::select('select * from usuarios where id = ?', [$idu]);
+        return $usuarios;
+    }
 }
